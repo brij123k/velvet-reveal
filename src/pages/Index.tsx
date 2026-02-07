@@ -1,12 +1,38 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useCallback } from "react";
+import { AnimatePresence } from "framer-motion";
+import Curtain from "@/components/Curtain";
+import InvitationContent from "@/components/InvitationContent";
+import TapPrompt from "@/components/TapPrompt";
 
 const Index = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleReveal = useCallback(() => {
+    if (!isOpen) {
+      setIsOpen(true);
+    }
+  }, [isOpen]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div
+      className="relative min-h-screen bg-background overflow-hidden cursor-pointer select-none"
+      onClick={handleReveal}
+      onTouchStart={handleReveal}
+    >
+      {/* SEO */}
+      <h1 className="sr-only">Sam & Sofia Wedding Invitation</h1>
+
+      {/* Invitation content behind curtains */}
+      <InvitationContent isVisible={isOpen} />
+
+      {/* Curtains */}
+      <Curtain side="left" isOpen={isOpen} />
+      <Curtain side="right" isOpen={isOpen} />
+
+      {/* Tap prompt */}
+      <AnimatePresence>
+        {!isOpen && <TapPrompt isVisible={!isOpen} />}
+      </AnimatePresence>
     </div>
   );
 };
