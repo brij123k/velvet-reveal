@@ -42,7 +42,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       }}
       initial={{ x: 0 }}
       animate={{
-        x: isOpen ? (isLeft ? "-100%" : "100%") : 0,
+        x: isOpen ? (isLeft ? "-70%" : "70%") : 0,
       }}
       transition={{
         duration: 1.6,
