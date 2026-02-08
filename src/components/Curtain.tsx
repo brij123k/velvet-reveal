@@ -27,7 +27,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       {/* Desktop images */}
       <img
         src={isOpen 
-          ? (isLeft ? "/src/assets/1.png" : "/src/assets/2.png")
+          ? (isLeft ? "/src/assets/left.png" : "/src/assets/right.png")
           : "/src/assets/Untitled design (55).png"
         }
         alt={`${side} curtain`}
@@ -37,7 +37,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       {/* Mobile images */}
       <img
         src={isOpen 
-          ? (isLeft ? "/src/assets/6.png" : "/src/assets/7.png")
+          ? (isLeft ? "/src/assets/left1.png" : "/src/assets/right2.png")
           : "/src/assets/Untitled design (55).png"
         }
         alt={`${side} curtain`}
