@@ -3,7 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import Curtain from "@/components/Curtain";
 import InvitationContent from "@/components/InvitationContent";
 import TapPrompt from "@/components/TapPrompt";
-
+import Home from "./Home"
 const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,6 +33,8 @@ const Index = () => {
       <AnimatePresence>
         {!isOpen && <TapPrompt isVisible={!isOpen} />}
       </AnimatePresence>
+      <Home/>
+    
     </div>
   );
 };

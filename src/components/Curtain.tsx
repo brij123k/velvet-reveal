@@ -12,14 +12,18 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
 
   return (
     <motion.div
+<<<<<<< HEAD
       className="fixed top-0 bottom-0 z-50 overflow-hidden"
+=======
+      className="fixed top-0 bottom-0 z-50 overflow-hidden pointer-events-none"
+>>>>>>> c9e17e9 (chanegs in the animatation)
       style={{
-        width: "55vw",
+        width: "50vw",
         [isLeft ? "left" : "right"]: 0,
       }}
       initial={{ x: 0 }}
       animate={{
-        x: isOpen ? (isLeft ? "-70%" : "70%") : 0,
+        x: isOpen ? (isLeft ? "-30%" : "30%") : 0,
       }}
       transition={{
         duration: 1.6,
@@ -27,6 +31,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       }}
     >
       <img
+<<<<<<< HEAD
         src={isLeft ? curtainLeft : curtainRight}
         alt=""
         className="w-full h-full object-cover"
@@ -34,6 +39,14 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
           objectPosition: isLeft ? "right center" : "left center",
         }}
         draggable={false}
+=======
+        src={isOpen 
+          ? (isLeft ? "/src/assets/1.png" : "/src/assets/2.png")
+          : "/src/assets/Untitled design (55).png"
+        }
+        alt={`${side} curtain`}
+        className="w-full h-full object-cover"
+>>>>>>> c9e17e9 (chanegs in the animatation)
       />
     </motion.div>
   );
