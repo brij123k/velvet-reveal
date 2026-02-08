@@ -8,16 +8,41 @@ interface CurtainProps {
 const Curtain = ({ side, isOpen }: CurtainProps) => {
   const isLeft = side === "left";
 
+  // Generate fabric fold lines with slight irregularity
+  const foldLines = Array.from({ length: 22 }, (_, i) => {
+    const baseX = 10 + i * (330 / 22);
+    const wobble = Math.sin(i * 1.7) * 4;
+    const x = baseX + wobble;
+    return {
+      x1: x,
+      y1: 60,
+      x2: x + Math.sin(i * 0.8) * 10,
+      y2: 1200,
+      opacity: 0.06 + Math.sin(i * 0.9) * 0.06,
+      strokeWidth: 0.6 + Math.sin(i * 1.2) * 0.5,
+    };
+  });
+
+  // Deeper, more dramatic fold highlights
+  const highlightFolds = Array.from({ length: 8 }, (_, i) => {
+    const baseX = 30 + i * (280 / 8);
+    return {
+      x: baseX + Math.sin(i * 2.1) * 5,
+      opacity: 0.04 + Math.sin(i * 1.3) * 0.03,
+      width: 8 + Math.sin(i * 0.7) * 4,
+    };
+  });
+
   return (
     <motion.div
-      className="fixed top-0 bottom-0 z-50 pointer-events-none"
+      className="fixed top-0 bottom-0 z-50"
       style={{
         width: "55vw",
         [isLeft ? "left" : "right"]: 0,
       }}
       initial={{ x: 0 }}
       animate={{
-        x: isOpen ? (isLeft ? "-15vw" : "15vw") : 0,
+        x: isOpen ? (isLeft ? "-70%" : "70%") : 0,
       }}
       transition={{
         duration: 1.6,
@@ -25,13 +50,13 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       }}
     >
       <svg
-        viewBox={isLeft ? "0 0 550 1000" : "450 0 550 1000"}
+        viewBox="0 0 340 1200"
         preserveAspectRatio="none"
         className="w-full h-full"
         style={{ display: "block" }}
       >
         <defs>
-          {/* Main curtain gradient - rich deep red */}
+          {/* Main curtain gradient - richer, deeper red */}
           <linearGradient
             id={`curtainGrad-${side}`}
             x1={isLeft ? "0%" : "100%"}
@@ -39,257 +64,143 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
             x2={isLeft ? "100%" : "0%"}
             y2="0%"
           >
-            <stop offset="0%" stopColor="hsl(348, 75%, 18%)" />
-            <stop offset="25%" stopColor="hsl(348, 70%, 25%)" />
-            <stop offset="50%" stopColor="hsl(348, 65%, 30%)" />
-            <stop offset="75%" stopColor="hsl(348, 70%, 22%)" />
-            <stop offset="100%" stopColor="hsl(348, 75%, 16%)" />
+            <stop offset="0%" stopColor="hsl(348, 70%, 18%)" />
+            <stop offset="20%" stopColor="hsl(348, 65%, 24%)" />
+            <stop offset="45%" stopColor="hsl(348, 60%, 28%)" />
+            <stop offset="65%" stopColor="hsl(348, 65%, 24%)" />
+            <stop offset="80%" stopColor="hsl(348, 60%, 27%)" />
+            <stop offset="100%" stopColor="hsl(348, 70%, 20%)" />
           </linearGradient>
 
-          {/* Shadow gradient for inner edge */}
+          {/* Inner edge shadow */}
           <linearGradient
-            id={`edgeShadow-${side}`}
-            x1={isLeft ? "0%" : "100%"}
+            id={`innerShadow-${side}`}
+            x1={isLeft ? "70%" : "30%"}
             y1="0%"
             x2={isLeft ? "100%" : "0%"}
             y2="0%"
           >
-            <stop offset="0%" stopColor="rgba(0,0,0,0)" />
-            <stop offset="70%" stopColor="rgba(0,0,0,0)" />
+            <stop offset="0%" stopColor="transparent" />
             <stop offset="100%" stopColor="rgba(0,0,0,0.35)" />
           </linearGradient>
 
-          {/* Tieback gradient */}
-          <linearGradient id={`tieback-${side}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="hsl(38, 45%, 72%)" />
-            <stop offset="50%" stopColor="hsl(38, 50%, 60%)" />
-            <stop offset="100%" stopColor="hsl(38, 45%, 68%)" />
+          {/* Top shadow for depth */}
+          <linearGradient id={`topShadow-${side}`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="rgba(0,0,0,0.2)" />
+            <stop offset="8%" stopColor="transparent" />
+          </linearGradient>
+
+          {/* Highlight gradient for fold shine */}
+          <linearGradient
+            id={`foldHighlight-${side}`}
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
+            <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+            <stop offset="50%" stopColor="rgba(255,255,255,0.06)" />
+            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
           </linearGradient>
         </defs>
 
-        {isLeft ? (
-          <>
-            {/* LEFT CURTAIN - Main shape: gathered at top, cinched at tieback, flows down */}
-            <path
-              d={`
-                M 0 0 L 500 0
-                L 500 20
-                C 480 30, 460 25, 440 30
-                C 400 50, 420 80, 380 120
-                C 350 170, 390 220, 360 280
-                C 340 330, 370 380, 350 420
-                C 330 460, 360 490, 340 520
-                C 320 550, 350 570, 380 580
-                C 400 585, 420 580, 440 590
-                C 460 600, 440 620, 420 650
-                C 380 720, 420 780, 400 840
-                C 380 900, 420 940, 430 1000
-                L 0 1000 Z
-              `}
-              fill={`url(#curtainGrad-${side})`}
+        {/* Full rectangle base - ensures complete coverage */}
+        <rect x="0" y="0" width="340" height="1200" fill={`url(#curtainGrad-${side})`} />
+
+        {/* Inner edge shadow overlay */}
+        <rect
+          x={isLeft ? 240 : 0}
+          y="0"
+          width="100"
+          height="1200"
+          fill={`url(#innerShadow-${side})`}
+        />
+
+        {/* Top shadow */}
+        <rect x="0" y="0" width="340" height="200" fill={`url(#topShadow-${side})`} />
+
+        {/* Fabric fold highlight strips */}
+        {highlightFolds.map((fold, i) => (
+          <rect
+            key={`highlight-${i}`}
+            x={fold.x}
+            y={60}
+            width={fold.width}
+            height={1140}
+            fill={`url(#foldHighlight-${side})`}
+            opacity={fold.opacity}
+          />
+        ))}
+
+        {/* Fabric fold lines - thin dark lines */}
+        {foldLines.map((line, i) => (
+          <line
+            key={i}
+            x1={line.x1}
+            y1={line.y1}
+            x2={line.x2}
+            y2={line.y2}
+            stroke="rgba(0,0,0,0.25)"
+            strokeWidth={line.strokeWidth}
+            opacity={line.opacity}
+          />
+        ))}
+
+        {/* Light fold lines */}
+        {foldLines.filter((_, i) => i % 3 === 0).map((line, i) => (
+          <line
+            key={`light-${i}`}
+            x1={line.x1 + 3}
+            y1={line.y1}
+            x2={line.x2 + 3}
+            y2={line.y2}
+            stroke="rgba(255,255,255,0.08)"
+            strokeWidth={0.8}
+            opacity={line.opacity}
+          />
+        ))}
+
+        {/* Top gathered/rod area - valance */}
+        <rect x="0" y="0" width="340" height="55" fill="hsl(348, 70%, 16%)" />
+        
+        {/* Gathered fabric bumps at top */}
+        {Array.from({ length: 14 }, (_, i) => {
+          const cx = 12 + i * (320 / 14);
+          return (
+            <ellipse
+              key={`gather-${i}`}
+              cx={cx}
+              cy={52}
+              rx={12}
+              ry={8}
+              fill="hsl(348, 65%, 22%)"
             />
+          );
+        })}
+        
+        {/* Rod line */}
+        <line x1="0" y1="12" x2="340" y2="12" stroke="hsl(38, 40%, 55%)" strokeWidth="5" />
+        <line x1="0" y1="12" x2="340" y2="12" stroke="hsl(38, 50%, 65%)" strokeWidth="2" />
 
-            {/* Edge shadow overlay */}
-            <path
-              d={`
-                M 350 0 L 500 0 L 500 20
-                C 480 30, 460 25, 440 30
-                C 400 50, 420 80, 380 120
-                C 350 170, 390 220, 360 280
-                C 340 330, 370 380, 350 420
-                C 330 460, 360 490, 340 520
-                C 320 550, 350 570, 380 580
-                C 400 585, 420 580, 440 590
-                C 460 600, 440 620, 420 650
-                C 380 720, 420 780, 400 840
-                C 380 900, 420 940, 430 1000
-                L 350 1000 Z
-              `}
-              fill={`url(#edgeShadow-${side})`}
-            />
-
-            {/* Fabric fold lines - upper section (wide, flowing down to tieback) */}
-            {Array.from({ length: 12 }, (_, i) => {
-              const x = 40 + i * 38;
-              const pinchX = 280 + i * 8; // converge toward tieback
-              const w1 = Math.sin(i * 1.5) * 12;
-              const w2 = Math.sin(i * 2.1) * 8;
-              const bottomX = 30 + i * 35;
-              return (
-                <path
-                  key={`fold-${i}`}
-                  d={`
-                    M ${x} 20
-                    C ${x + w1} 150, ${pinchX + w2} 400, ${pinchX} 570
-                    C ${pinchX - w1} 650, ${bottomX + w2} 800, ${bottomX + w1} 1000
-                  `}
-                  fill="none"
-                  stroke="rgba(0,0,0,0.12)"
-                  strokeWidth={0.6 + Math.sin(i * 0.7) * 0.3}
-                />
-              );
-            })}
-
-            {/* Light highlight folds */}
-            {Array.from({ length: 6 }, (_, i) => {
-              const x = 80 + i * 70;
-              const pinchX = 290 + i * 12;
-              const bottomX = 60 + i * 60;
-              return (
-                <path
-                  key={`hl-${i}`}
-                  d={`
-                    M ${x} 20
-                    C ${x} 200, ${pinchX} 400, ${pinchX} 570
-                    C ${pinchX} 700, ${bottomX} 850, ${bottomX} 1000
-                  `}
-                  fill="none"
-                  stroke="rgba(255,255,255,0.05)"
-                  strokeWidth={1.5}
-                />
-              );
-            })}
-
-            {/* Gathered ruffle at top (rod pocket) */}
-            <rect x="0" y="0" width="510" height="22" fill="hsl(348, 75%, 16%)" />
-            {Array.from({ length: 20 }, (_, i) => (
-              <ellipse
-                key={`ruffle-${i}`}
-                cx={25 + i * 24}
-                cy="22"
-                rx="12"
-                ry="8"
-                fill="hsl(348, 70%, 22%)"
-                stroke="rgba(0,0,0,0.15)"
-                strokeWidth="0.5"
-              />
-            ))}
-
-            {/* Golden tieback */}
-            <path
-              d={`M 310 565 Q 370 555, 420 580 Q 370 600, 310 590`}
-              fill={`url(#tieback-${side})`}
-              stroke="hsl(38, 40%, 50%)"
-              strokeWidth="1"
-            />
-            <ellipse cx="310" cy="577" rx="6" ry="14" fill="hsl(38, 45%, 60%)" stroke="hsl(38, 35%, 45%)" strokeWidth="1" />
-            <ellipse cx="420" cy="582" rx="6" ry="12" fill="hsl(38, 45%, 60%)" stroke="hsl(38, 35%, 45%)" strokeWidth="1" />
-
-            {/* Rod finial */}
-            <circle cx="0" cy="10" r="8" fill="hsl(38, 40%, 55%)" stroke="hsl(38, 30%, 40%)" strokeWidth="1" />
-          </>
-        ) : (
-          <>
-            {/* RIGHT CURTAIN - Mirror of left */}
-            <path
-              d={`
-                M 1000 0 L 500 0
-                L 500 20
-                C 520 30, 540 25, 560 30
-                C 600 50, 580 80, 620 120
-                C 650 170, 610 220, 640 280
-                C 660 330, 630 380, 650 420
-                C 670 460, 640 490, 660 520
-                C 680 550, 650 570, 620 580
-                C 600 585, 580 580, 560 590
-                C 540 600, 560 620, 580 650
-                C 620 720, 580 780, 600 840
-                C 620 900, 580 940, 570 1000
-                L 1000 1000 Z
-              `}
-              fill={`url(#curtainGrad-${side})`}
-            />
-
-            {/* Edge shadow overlay */}
-            <path
-              d={`
-                M 650 0 L 500 0 L 500 20
-                C 520 30, 540 25, 560 30
-                C 600 50, 580 80, 620 120
-                C 650 170, 610 220, 640 280
-                C 660 330, 630 380, 650 420
-                C 670 460, 640 490, 660 520
-                C 680 550, 650 570, 620 580
-                C 600 585, 580 580, 560 590
-                C 540 600, 560 620, 580 650
-                C 620 720, 580 780, 600 840
-                C 620 900, 580 940, 570 1000
-                L 650 1000 Z
-              `}
-              fill={`url(#edgeShadow-${side})`}
-            />
-
-            {/* Fabric fold lines */}
-            {Array.from({ length: 12 }, (_, i) => {
-              const x = 960 - i * 38;
-              const pinchX = 720 - i * 8;
-              const w1 = Math.sin(i * 1.5) * 12;
-              const w2 = Math.sin(i * 2.1) * 8;
-              const bottomX = 970 - i * 35;
-              return (
-                <path
-                  key={`fold-${i}`}
-                  d={`
-                    M ${x} 20
-                    C ${x - w1} 150, ${pinchX - w2} 400, ${pinchX} 570
-                    C ${pinchX + w1} 650, ${bottomX - w2} 800, ${bottomX - w1} 1000
-                  `}
-                  fill="none"
-                  stroke="rgba(0,0,0,0.12)"
-                  strokeWidth={0.6 + Math.sin(i * 0.7) * 0.3}
-                />
-              );
-            })}
-
-            {/* Light highlight folds */}
-            {Array.from({ length: 6 }, (_, i) => {
-              const x = 920 - i * 70;
-              const pinchX = 710 - i * 12;
-              const bottomX = 940 - i * 60;
-              return (
-                <path
-                  key={`hl-${i}`}
-                  d={`
-                    M ${x} 20
-                    C ${x} 200, ${pinchX} 400, ${pinchX} 570
-                    C ${pinchX} 700, ${bottomX} 850, ${bottomX} 1000
-                  `}
-                  fill="none"
-                  stroke="rgba(255,255,255,0.05)"
-                  strokeWidth={1.5}
-                />
-              );
-            })}
-
-            {/* Gathered ruffle at top */}
-            <rect x="490" y="0" width="510" height="22" fill="hsl(348, 75%, 16%)" />
-            {Array.from({ length: 20 }, (_, i) => (
-              <ellipse
-                key={`ruffle-${i}`}
-                cx={975 - i * 24}
-                cy="22"
-                rx="12"
-                ry="8"
-                fill="hsl(348, 70%, 22%)"
-                stroke="rgba(0,0,0,0.15)"
-                strokeWidth="0.5"
-              />
-            ))}
-
-            {/* Golden tieback */}
-            <path
-              d={`M 690 565 Q 630 555, 580 580 Q 630 600, 690 590`}
-              fill={`url(#tieback-${side})`}
-              stroke="hsl(38, 40%, 50%)"
-              strokeWidth="1"
-            />
-            <ellipse cx="690" cy="577" rx="6" ry="14" fill="hsl(38, 45%, 60%)" stroke="hsl(38, 35%, 45%)" strokeWidth="1" />
-            <ellipse cx="580" cy="582" rx="6" ry="12" fill="hsl(38, 45%, 60%)" stroke="hsl(38, 35%, 45%)" strokeWidth="1" />
-
-            {/* Rod finial */}
-            <circle cx="1000" cy="10" r="8" fill="hsl(38, 40%, 55%)" stroke="hsl(38, 30%, 40%)" strokeWidth="1" />
-          </>
-        )}
+        {/* Bottom wavy edge */}
+        <path
+          d={
+            isLeft
+              ? `M 0 1170 
+                 Q 50 1155, 85 1180 
+                 Q 120 1205, 160 1185 
+                 Q 200 1165, 240 1190 
+                 Q 280 1210, 340 1185
+                 L 340 1200 L 0 1200 Z`
+              : `M 340 1170 
+                 Q 290 1155, 255 1180 
+                 Q 220 1205, 180 1185 
+                 Q 140 1165, 100 1190 
+                 Q 60 1210, 0 1185
+                 L 0 1200 L 340 1200 Z`
+          }
+          fill="hsl(348, 70%, 18%)"
+        />
       </svg>
     </motion.div>
   );
