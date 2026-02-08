@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import curtainTexture from "@/assets/curtain-texture.png";
+import curtainLeft from "@/assets/curtain-left.png";
+import curtainRight from "@/assets/curtain-right.png";
 
 interface CurtainProps {
   side: "left" | "right";
@@ -26,12 +27,11 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       }}
     >
       <img
-        src={curtainTexture}
+        src={isLeft ? curtainLeft : curtainRight}
         alt=""
         className="w-full h-full object-cover"
         style={{
           objectPosition: isLeft ? "right center" : "left center",
-          transform: isLeft ? "none" : "scaleX(-1)",
         }}
         draggable={false}
       />
