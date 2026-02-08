@@ -26,16 +26,16 @@ const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) =
         animate={isVisible ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.9 }}
       >
-        <p className="font-serif-elegant text-[8px] sm:text-xs md:text-sm tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-muted-foreground leading-[1.2] uppercase">
+        <p className="font-serif-elegant text-[8px] sm:text-xs md:text-sm tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-gray-700 sm:text-muted-foreground leading-[1.2] uppercase">
           || SHREE SHANKESHWARA PARSHWANATHAYA NAMAH ||
         </p>
-        <p className="font-serif-elegant text-[10px] sm:text-base md:text-lg tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-foreground leading-[1.3]">
+        <p className="font-serif-elegant text-[10px] sm:text-base md:text-lg tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-gray-900 sm:text-foreground leading-[1.3]">
           Smt. Rasilaben & Shri. Chimanlal Doshi
         </p>
-        <p className="font-serif-elegant text-[10px] sm:text-base md:text-lg tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-foreground leading-[1.3]">
+        <p className="font-serif-elegant text-[10px] sm:text-base md:text-lg tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-gray-900 sm:text-foreground leading-[1.3]">
           Solicits Your Blessings for the
         </p>
-        <p className="font-serif-elegant text-[10px] sm:text-base md:text-lg tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-foreground leading-[1.3]">
+        <p className="font-serif-elegant text-[10px] sm:text-base md:text-lg tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-gray-900 sm:text-foreground leading-[1.3]">
           Engagement Ceremony of their Grand Daughter
         </p>
       </motion.div>
@@ -56,7 +56,7 @@ const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) =
           Maitri
         </motion.h1>
         <motion.p
-          className="font-serif-elegant text-[10px] sm:text-sm md:text-base tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-foreground leading-[1.3]"
+          className="font-serif-elegant text-[10px] sm:text-sm md:text-base tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-gray-900 sm:text-foreground leading-[1.3]"
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.3 }}
@@ -91,7 +91,7 @@ const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) =
           Moksh
         </motion.h1>
         <motion.p
-          className="font-serif-elegant text-[10px] sm:text-sm md:text-base tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-foreground leading-[1.3]"
+          className="font-serif-elegant text-[10px] sm:text-sm md:text-base tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-gray-900 sm:text-foreground leading-[1.3]"
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.9 }}
