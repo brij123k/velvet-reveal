@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import goldenGlitterHeart from '@/assets/golden-glitter-heart8.png';
-import whiteHeart from '@/assets/Untitled design (54).png';
+import whiteHeart from '@/assets/white_3d.png';
 
 interface GlitterParticle {
   id: number;
