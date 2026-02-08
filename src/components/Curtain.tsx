@@ -37,7 +37,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       {/* Mobile images */}
       <img
         src={isOpen 
-          ? (isLeft ? "/src/assets/6.png" : "/src/assets/7.png")
+          ? (isLeft ? "/src/assets/left1.png" : "/src/assets/right2.png")
           : "/src/assets/closed.png"
         }
         alt={`${side} curtain`}
