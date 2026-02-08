@@ -28,7 +28,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       <img
         src={isOpen 
           ? (isLeft ? "/src/assets/left.png" : "/src/assets/right.png")
-          : "/src/assets/Untitled design (55).png"
+          : "/src/assets/closed.png"
         }
         alt={`${side} curtain`}
         className="hidden md:block w-full h-full object-cover"
@@ -38,7 +38,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       <img
         src={isOpen 
           ? (isLeft ? "/src/assets/6.png" : "/src/assets/7.png")
-          : "/src/assets/Untitled design (55).png"
+          : "/src/assets/closed.png"
         }
         alt={`${side} curtain`}
         className="block md:hidden w-full h-full object-cover"
