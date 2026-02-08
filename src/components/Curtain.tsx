@@ -14,41 +14,60 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
   const isLeft = side === "left";
 
   return (
-    <motion.div
-      className="fixed top-0 bottom-0 z-50 overflow-hidden pointer-events-none"
-      style={{
-        width: "50vw",
-        [isLeft ? "left" : "right"]: 0,
-      }}
-      initial={{ x: 0 }}
-      animate={{
-        x: isOpen ? (isLeft ? "-30%" : "30%") : 0,
-      }}
-      transition={{
-        duration: 1.6,
-        ease: [0.25, 0.1, 0.25, 1],
-      }}
-    >
-      {/* Desktop images */}
-      <img
-        src={isOpen 
-          ? (isLeft ? leftCurtain : rightCurtain)
-          : closedCurtain
-        }
-        alt={`${side} curtain`}
-        className="hidden md:block w-full h-full object-cover"
-      />
-      
-      {/* Mobile images */}
-      <img
-        src={isOpen 
-          ? (isLeft ? leftCurtainMobile : rightCurtainMobile)
-          : closedCurtain
-        }
-        alt={`${side} curtain`}
-        className="block md:hidden w-full h-full object-cover"
-      />
-    </motion.div>
+    <>
+      {/* Desktop curtain - stays fixed */}
+      <motion.div
+        className="hidden md:block fixed top-0 bottom-0 z-50 overflow-hidden pointer-events-none"
+        style={{
+          width: "50vw",
+          [isLeft ? "left" : "right"]: 0,
+        }}
+        initial={{ x: 0 }}
+        animate={{
+          x: isOpen ? (isLeft ? "-30%" : "30%") : 0,
+        }}
+        transition={{
+          duration: 1.6,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
+      >
+        <img
+          src={isOpen 
+            ? (isLeft ? leftCurtain : rightCurtain)
+            : closedCurtain
+          }
+          alt={`${side} curtain`}
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
+
+      {/* Mobile curtain - scrolls with content */}
+      <motion.div
+        className="block md:hidden absolute top-0 bottom-0 z-50 overflow-hidden pointer-events-none"
+        style={{
+          width: "50vw",
+          [isLeft ? "left" : "right"]: 0,
+          height: "100vh",
+        }}
+        initial={{ x: 0 }}
+        animate={{
+          x: isOpen ? (isLeft ? "0%" : "40%") : 0,
+        }}
+        transition={{
+          duration: 1.6,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
+      >
+        <img
+          src={isOpen 
+            ? (isLeft ? leftCurtainMobile : rightCurtainMobile)
+            : closedCurtain
+          }
+          alt={`${side} curtain`}
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
+    </>
   );
 };
 

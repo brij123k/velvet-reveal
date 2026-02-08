@@ -250,7 +250,7 @@ const ScratchCard: React.FC<ScratchCardProps> = ({
               fontFamily: "'Playfair Display', 'Bodoni Moda', serif"
             }}
           >
-             10:00 AM Onwards
+              9.30 AM Onwards
           </p>
         </div>
       </div>

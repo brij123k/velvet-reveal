@@ -34,7 +34,6 @@ const Index = () => {
         {!isOpen && <TapPrompt isVisible={!isOpen} />}
       </AnimatePresence>
       <Home/>
-    
     </div>
   );
 };
