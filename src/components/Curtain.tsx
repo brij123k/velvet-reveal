@@ -1,4 +1,9 @@
 import { motion } from "framer-motion";
+import leftCurtain from "../assets/left.png";
+import rightCurtain from "../assets/right.png";
+import closedCurtain from "../assets/closed.png";
+import leftCurtainMobile from "../assets/left1.png";
+import rightCurtainMobile from "../assets/right2.png";
 
 interface CurtainProps {
   side: "left" | "right";
@@ -17,7 +22,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       }}
       initial={{ x: 0 }}
       animate={{
-        x: isOpen ? (isLeft ? "0%" : "30%") : 0,
+        x: isOpen ? (isLeft ? "-30%" : "30%") : 0,
       }}
       transition={{
         duration: 1.6,
@@ -27,8 +32,8 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       {/* Desktop images */}
       <img
         src={isOpen 
-          ? (isLeft ? "/src/assets/left.png" : "/src/assets/right.png")
-          : "/src/assets/closed.png"
+          ? (isLeft ? leftCurtain : rightCurtain)
+          : closedCurtain
         }
         alt={`${side} curtain`}
         className="hidden md:block w-full h-full object-cover"
@@ -37,8 +42,8 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       {/* Mobile images */}
       <img
         src={isOpen 
-          ? (isLeft ? "/src/assets/left1.png" : "/src/assets/right2.png")
-          : "/src/assets/closed.png"
+          ? (isLeft ? leftCurtainMobile : rightCurtainMobile)
+          : closedCurtain
         }
         alt={`${side} curtain`}
         className="block md:hidden w-full h-full object-cover"
