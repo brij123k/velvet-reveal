@@ -217,27 +217,29 @@ const ScratchCard: React.FC<ScratchCardProps> = ({
           className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 sm:px-8"
           style={{ 
             clipPath: `path('${heartPath}')`,
-            paddingTop: '18%',
+            paddingTop: '10%',
             paddingBottom: '12%'
           }}
         >
           <p 
-            className="text-lg sm:text-xl font-semibold tracking-wide mb-2 sm:mb-3"
+            className="text-lg sm:text-xl font-semibold tracking-wide sm:mb-2"
             style={{ 
               color: '#000000', 
               lineHeight: '1.2',
-              fontFamily: "'Playfair Display', 'Bodoni Moda', serif"
+              fontFamily: "'Playfair Display', 'Bodoni Moda', serif",
+              marginBottom: '1.25rem'
             }}
           >
             22 February, 2026
           </p>
           
 <p 
-  className="text-sm sm:text-base tracking-widest uppercase mb-1 sm:mb-2"
+  className="text-sm sm:text-base tracking-widest uppercase sm:mb-2"
   style={{ 
     color: '#6B6B6B',
     fontFamily: "'Playfair Display', 'Bodoni Moda', serif",
-    letterSpacing: '0.15em'
+    letterSpacing: '0.15em',
+    marginBottom: '1.25rem'
   }}
 >
   Babubhai Jagjivandas Hall, Vile Parle

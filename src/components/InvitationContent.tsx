@@ -2,17 +2,17 @@ import { motion } from "framer-motion";
 
 interface InvitationContentProps {
   isVisible: boolean;
-  currentPage: number; // Add currentPage prop
+  currentPage: number;
 }
 
 const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) => {
   return (
     <motion.div
-      className="flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 md:px-8 py-2 sm:py-12 md:py-16 text-center"
+      className="flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 md:px-8 py-2 sm:py-12 md:py-16 text-center -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-20"
       initial={{ opacity: 0 }}
       animate={{ 
         opacity: isVisible ? 1 : 0,
-        y: currentPage > 0 ? "-100vh" : 0 // Move up with curtains on mobile
+        y: currentPage > 0 ? "-100vh" : 0
       }}
       transition={{ 
         opacity: { duration: 1.2, delay: 0.4, ease: "easeOut" },
@@ -20,21 +20,24 @@ const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) =
       }}
     >
 
-      {/* Main message */}
+      {/* Prayer text */}
       <motion.div
-        className="mb-4 sm:mb-6 md:mb-8 space-y-0.5"
+        className="mb-10 sm:mb-14 md:mb-16"
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.9 }}
       >
-        <p className="font-serif-elegant text-[10px] sm:text-xs md:text-sm tracking-[0.05em] sm:tracking-[0.12em] md:tracking-[0.15em] text-gray-700 sm:text-muted-foreground leading-[1.2] uppercase">
-          || SHREE SHANKESHWARA PARSHWANATHAYA NAMAH ||
+        <p className="font-serif-elegant text-[10px] sm:text-xs md:text-sm tracking-[0.25em] sm:tracking-[0.3em] md:tracking-[0.35em] text-gray-700 sm:text-muted-foreground leading-[1.2] uppercase">
+          || SHREE SHANKESHWARA 
+        </p>
+         <p className="font-serif-elegant text-[10px] sm:text-xs md:text-sm tracking-[0.25em] sm:tracking-[0.3em] md:tracking-[0.35em] text-gray-700 sm:text-muted-foreground leading-[1.2] uppercase">
+  PARSHWANATHAYA NAMAH ||
         </p>
       </motion.div>
       
-      {/* Main message */}
+      {/* Host announcement */}
       <motion.div
-        className="mb-2 sm:mb-5 md:mb-6 space-y-0.5"
+        className="mb-10 sm:mb-14 md:mb-16 space-y-0.5"
         initial={{ opacity: 0, y: 20 }}
         animate={isVisible ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.9 }}
@@ -58,7 +61,12 @@ const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) =
         transition={{ duration: 0.8, delay: 1.1 }}
       >
         <motion.h1
-          className="font-calligraphy text-[40px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-accent leading-[1.1] mb-0"
+          className="text-[50px] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[1.1] mb-0"
+          style={{ 
+            fontFamily: "'Great Vibes', 'Allura', 'Tangerine', 'Dancing Script', cursive",
+            color: '#c9a961',
+            fontWeight: 400
+          }}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={isVisible ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, delay: 1.1, ease: "easeOut" }}
@@ -75,9 +83,14 @@ const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) =
         </motion.p>
       </motion.div>
 
-      {/* Ampersand */}
+      {/* "with" - using ampersand symbol */}
       <motion.span
-        className="font-calligraphy text-2xl sm:text-3xl md:text-4xl text-accent block my-1 sm:my-2.5"
+        className="text-3xl sm:text-4xl md:text-5xl block my-4 sm:my-6 md:my-8"
+        style={{ 
+          fontFamily: "'Great Vibes', 'Allura', 'Tangerine', 'Dancing Script', cursive",
+          color: '#c9a961',
+          fontWeight: 400
+        }}
         initial={{ opacity: 0 }}
         animate={isVisible ? { opacity: 1 } : {}}
         transition={{ duration: 0.8, delay: 1.5 }}
@@ -93,7 +106,12 @@ const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) =
         transition={{ duration: 0.8, delay: 1.7 }}
       >
         <motion.h1
-          className="font-calligraphy text-[40px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-accent leading-[1.1] mb-0"
+          className="text-[50px] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[1.1] mb-0"
+          style={{ 
+            fontFamily: "'Great Vibes', 'Allura', 'Tangerine', 'Dancing Script', cursive",
+            color: '#c9a961',
+            fontWeight: 400
+          }}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={isVisible ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, delay: 1.7, ease: "easeOut" }}
