@@ -8,7 +8,7 @@ interface InvitationContentProps {
 const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) => {
   return (
     <motion.div
-      className="flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 md:px-8 py-2 sm:py-12 md:py-16 text-center mt-8 sm:mt-12 md:mt-16"
+      className="flex flex-col items-center justify-center min-h-screen px-3 sm:px-6 md:px-8 py-2 sm:py-12 md:py-16 text-center"
       initial={{ opacity: 0 }}
       animate={{ 
         opacity: isVisible ? 1 : 0,
