@@ -20,7 +20,7 @@ const Index = () => {
       onTouchStart={handleReveal}
     >
       {/* SEO */}
-      <h1 className="sr-only"> Maitri & Moksh — Wedding Invitation</h1>
+      <h1 className="sr-only"> Maitri & Moksh — Engagement Invitation</h1>
 
       {/* Invitation content behind curtains */}
       <InvitationContent isVisible={isOpen} />

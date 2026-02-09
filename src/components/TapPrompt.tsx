@@ -15,9 +15,9 @@ const TapPrompt = ({ isVisible }: { isVisible: boolean }) => {
         <motion.div
           className="animate-pulse-soft"
         >
-          <p className="font-serif-elegant text-sm tracking-[0.3em] uppercase text-primary-foreground/90">
-            Tap to open
-          </p>
+<p className="font-serif-elegant text-sm tracking-[0.3em] uppercase text-black">
+  Tap to open
+</p>
         </motion.div>
       </div>
     </motion.div>

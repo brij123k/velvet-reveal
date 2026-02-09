@@ -222,7 +222,7 @@ const ScratchCard: React.FC<ScratchCardProps> = ({
           }}
         >
           <p 
-            className="text-base sm:text-lg font-semibold tracking-wide mb-2 sm:mb-3"
+            className="text-lg sm:text-xl font-semibold tracking-wide mb-2 sm:mb-3"
             style={{ 
               color: '#000000', 
               lineHeight: '1.2',
@@ -232,26 +232,27 @@ const ScratchCard: React.FC<ScratchCardProps> = ({
             22 February, 2026
           </p>
           
-          <p 
-            className="text-xs sm:text-sm tracking-widest uppercase mb-3 sm:mb-4"
-            style={{ 
-              color: '#6B6B6B',
-              fontFamily: "'Playfair Display', 'Bodoni Moda', serif",
-              letterSpacing: '0.15em'
-            }}
-          >
-            Babubhai Jagjivandas Hall
-          </p>
-              <p 
-            className="italic text-sm sm:text-base tracking-wide"
-            style={{ 
-              color: '#000000', 
-              lineHeight: '1.2',
-              fontFamily: "'Playfair Display', 'Bodoni Moda', serif"
-            }}
-          >
-              9.30 AM Onwards
-          </p>
+<p 
+  className="text-sm sm:text-base tracking-widest uppercase mb-1 sm:mb-2"
+  style={{ 
+    color: '#6B6B6B',
+    fontFamily: "'Playfair Display', 'Bodoni Moda', serif",
+    letterSpacing: '0.15em'
+  }}
+>
+  Babubhai Jagjivandas Hall, Vile Parle
+</p>
+
+<p 
+  className="italic text-base sm:text-lg tracking-wide"
+  style={{ 
+    color: '#000000', 
+    lineHeight: '1.2',
+    fontFamily: "'Playfair Display', 'Bodoni Moda', serif"
+  }}
+>
+  9.30 AM Onwards
+</p>
         </div>
       </div>
       
