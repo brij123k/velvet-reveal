@@ -31,9 +31,17 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       // Only trigger confetti once from left curtain to avoid duplicates
       setShowConfetti(true);
       
-      // Generate confetti pieces
+      // Generate confetti pieces with golden glitter colors
       const pieces: Confetti[] = [];
-      const colors = ["#FF6B6B", "#4ECDC4", "#FFE66D", "#95E1D3", "#F38181", "#AA96DA", "#FCBAD3"];
+      const colors = [
+        "#FFD700", // Gold
+        "#FFC107", // Amber
+        "#FFEB3B", // Yellow gold
+        "#F9A825", // Dark gold
+        "#FFB300", // Light gold
+        "#C9B037", // Metallic gold
+        "#E6BE8A", // Rose gold
+      ];
       
       for (let i = 0; i < 50; i++) {
         pieces.push({
@@ -114,7 +122,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
         />
       </motion.div>
 
-      {/* Confetti - works on both mobile and desktop */}
+      {/* Golden Glitter Confetti - works on both mobile and desktop */}
       {showConfetti && side === "left" && (
         <div className="fixed inset-0 z-40 pointer-events-none overflow-hidden">
           {confetti.map((piece) => (
@@ -127,6 +135,8 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
                 height: `${piece.size}px`,
                 backgroundColor: piece.color,
                 borderRadius: Math.random() > 0.5 ? "50%" : "0%",
+                boxShadow: `0 0 ${piece.size * 2}px ${piece.color}`,
+                filter: "brightness(1.2)",
               }}
               initial={{
                 y: piece.y,
@@ -138,6 +148,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
                 rotate: [0, piece.rotation, piece.rotation * 2],
                 x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50],
                 opacity: [1, 1, 0.5],
+                scale: [1, 1.2, 1, 0.8],
               }}
               transition={{
                 duration: 3 + Math.random() * 2,
