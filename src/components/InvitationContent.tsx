@@ -79,7 +79,7 @@ const InvitationContent = ({ isVisible, currentPage }: InvitationContentProps) =
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.3 }}
         >
-          D/o Smt. Nipaben Viren Bhai Doshi
+          D/o Smt. Nipaben Virenbhai Doshi
         </motion.p>
       </motion.div>
 
