@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import leftCurtain from "../assets/left.png";
 import rightCurtain from "../assets/right.png";
 import closedCurtain from "../assets/closed.png";
-import leftCurtainMobile from "../assets/left1.png";
-import rightCurtainMobile from "../assets/right2.png";
+import leftCurtainMobile from "../assets/5.png";
+import rightCurtainMobile from "../assets/4.png";
 
 interface CurtainProps {
   side: "left" | "right";
@@ -91,22 +91,23 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       </motion.div>
 
       {/* Mobile curtain - scrolls with content */}
-      <motion.div
-        className="block md:hidden absolute top-0 bottom-0 z-50 overflow-hidden pointer-events-none"
-        style={{
-          width: "50vw",
-          [isLeft ? "left" : "right"]: 0,
-          height: "100vh",
-        }}
-        initial={{ x: 0 }}
-        animate={{
-          x: isOpen ? (isLeft ? "0%" : "35%") : 0,
-        }}
-        transition={{
-          duration: 1.6,
-          ease: [0.25, 0.1, 0.25, 1],
-        }}
-      >
+{/* Mobile curtain - scrolls with content */}
+<motion.div
+  className="block md:hidden absolute top-0 bottom-0 z-50 overflow-hidden pointer-events-none"
+  style={{
+    width: "50vw",
+    [isLeft ? "left" : "right"]: 0,
+    height: "100vh",
+  }}
+  initial={{ x: 0 }}
+  animate={{
+    x: isOpen ? (isLeft ? "-30%" : "20%") : 0,  // Changed "-30" to "-30%"
+  }}
+  transition={{
+    duration: 1.6,
+    ease: [0.25, 0.1, 0.25, 1],
+  }}
+>
         <img
           src={isOpen 
             ? (isLeft ? leftCurtainMobile : rightCurtainMobile)
