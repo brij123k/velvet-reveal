@@ -19,6 +19,7 @@ interface Confetti {
   color: string;
   delay: number;
   size: number;
+  shape: string;
 }
 
 const Curtain = ({ side, isOpen }: CurtainProps) => {
@@ -31,27 +32,21 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       // Only trigger confetti once from left curtain to avoid duplicates
       setShowConfetti(true);
       
-      // Generate confetti pieces with golden glitter colors
+      // Generate confetti pieces - more pieces for glitter effect
       const pieces: Confetti[] = [];
-      const colors = [
-        "#FFD700", // Gold
-        "#FFC107", // Amber
-        "#FFEB3B", // Yellow gold
-        "#F9A825", // Dark gold
-        "#FFB300", // Light gold
-        "#C9B037", // Metallic gold
-        "#E6BE8A", // Rose gold
-      ];
+      const colors = ["#FFD700", "#FFC125", "#FFDF00", "#FFE55C", "#FFEA70", "#FFF4A3"];
+      const shapes = ["circle", "diamond", "star", "square"];
       
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 150; i++) {
         pieces.push({
           id: i,
           x: Math.random() * 100, // Random horizontal position (%)
           y: -20, // Start above viewport
           rotation: Math.random() * 360,
           color: colors[Math.floor(Math.random() * colors.length)],
-          delay: Math.random() * 0.5,
-          size: Math.random() * 8 + 4, // 4-12px
+          delay: Math.random() * 0.8,
+          size: Math.random() * 6 + 2, // 2-8px (smaller for glitter effect)
+          shape: shapes[Math.floor(Math.random() * shapes.length)],
         });
       }
       
@@ -61,7 +56,7 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       const timer = setTimeout(() => {
         setShowConfetti(false);
         setConfetti([]);
-      }, 4000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }
@@ -122,41 +117,63 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
         />
       </motion.div>
 
-      {/* Golden Glitter Confetti - works on both mobile and desktop */}
+      {/* Confetti - works on both mobile and desktop */}
       {showConfetti && side === "left" && (
         <div className="fixed inset-0 z-40 pointer-events-none overflow-hidden">
-          {confetti.map((piece) => (
-            <motion.div
-              key={piece.id}
-              className="absolute"
-              style={{
-                left: `${piece.x}%`,
-                width: `${piece.size}px`,
-                height: `${piece.size}px`,
-                backgroundColor: piece.color,
-                borderRadius: Math.random() > 0.5 ? "50%" : "0%",
-                boxShadow: `0 0 ${piece.size * 2}px ${piece.color}`,
-                filter: "brightness(1.2)",
-              }}
-              initial={{
-                y: piece.y,
-                rotate: 0,
-                opacity: 1,
-              }}
-              animate={{
-                y: ["0vh", "120vh"],
-                rotate: [0, piece.rotation, piece.rotation * 2],
-                x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50],
-                opacity: [1, 1, 0.5],
-                scale: [1, 1.2, 1, 0.8],
-              }}
-              transition={{
-                duration: 3 + Math.random() * 2,
-                delay: piece.delay,
-                ease: "easeIn",
-              }}
-            />
-          ))}
+          {confetti.map((piece) => {
+            const getShapeStyle = () => {
+              switch (piece.shape) {
+                case "circle":
+                  return { borderRadius: "50%" };
+                case "diamond":
+                  return { 
+                    borderRadius: "0%",
+                    transform: "rotate(45deg)",
+                    clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"
+                  };
+                case "star":
+                  return {
+                    clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)"
+                  };
+                case "square":
+                default:
+                  return { borderRadius: "0%" };
+              }
+            };
+
+            return (
+              <motion.div
+                key={piece.id}
+                className="absolute"
+                style={{
+                  left: `${piece.x}%`,
+                  width: `${piece.size}px`,
+                  height: `${piece.size}px`,
+                  backgroundColor: piece.color,
+                  boxShadow: `0 0 ${piece.size * 2}px ${piece.color}`,
+                  ...getShapeStyle(),
+                }}
+                initial={{
+                  y: piece.y,
+                  rotate: 0,
+                  opacity: 1,
+                  scale: 0,
+                }}
+                animate={{
+                  y: ["0vh", "120vh"],
+                  rotate: [0, piece.rotation * 3, piece.rotation * 6],
+                  x: [0, Math.random() * 60 - 30, Math.random() * 80 - 40],
+                  opacity: [0, 1, 1, 0.8, 0],
+                  scale: [0, 1, 1, 0.8, 0.5],
+                }}
+                transition={{
+                  duration: 3.5 + Math.random() * 2.5,
+                  delay: piece.delay,
+                  ease: "easeIn",
+                }}
+              />
+            );
+          })}
         </div>
       )}
     </>
