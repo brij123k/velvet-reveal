@@ -4,6 +4,8 @@ import Curtain from "@/components/Curtain";
 import InvitationContent from "@/components/InvitationContent";
 import TapPrompt from "@/components/TapPrompt";
 import Home from "./Home"
+// import CountdownPage from "../components/Countdownpage"
+
 const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -15,7 +17,7 @@ const Index = () => {
 
   return (
     <div
-      className="relative min-h-screen bg-background overflow-hidden cursor-pointer select-none"
+      className="relative min-h-screen bg-white overflow-hidden cursor-pointer select-none"
       onClick={handleReveal}
       onTouchStart={handleReveal}
     >
@@ -34,6 +36,7 @@ const Index = () => {
         {!isOpen && <TapPrompt isVisible={!isOpen} />}
       </AnimatePresence>
       <Home/>
+      {/* <CountdownPage/> */}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import goldenGlitterHeart from '@/assets/golden-glitter-heart8.png';
-import whiteHeart from '@/assets/white_3d.png';
+import whiteHeart from '@/assets/white_hart1.png';
 
 interface GlitterParticle {
   id: number;
@@ -19,12 +19,16 @@ interface ScratchCardProps {
   width?: number;
   height?: number;
   onComplete?: () => void;
+  onScratchStart?: () => void; // NEW: callback when scratching starts
+  content?: React.ReactNode;
 }
 
 const ScratchCard: React.FC<ScratchCardProps> = ({
   width = 280,
   height = 260,
   onComplete,
+  onScratchStart, // NEW
+  content,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isScratching, setIsScratching] = useState(false);
@@ -186,6 +190,11 @@ const ScratchCard: React.FC<ScratchCardProps> = ({
     setIsScratching(true);
     const pos = getPosition(e);
     scratch(pos.x, pos.y);
+    
+    // Trigger onScratchStart callback on first scratch
+    if (scratchPercent === 0 && onScratchStart) {
+      onScratchStart();
+    }
   };
 
   const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
@@ -212,49 +221,14 @@ const ScratchCard: React.FC<ScratchCardProps> = ({
           className="absolute inset-0 w-full h-full object-contain"
         />
         
-        {/* Content inside heart */}
+        {/* Content inside heart - NOW CUSTOMIZABLE */}
         <div 
-          className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 sm:px-8"
+          className="absolute inset-0 flex flex-col items-center justify-center text-center px-2"
           style={{ 
             clipPath: `path('${heartPath}')`,
-            paddingTop: '10%',
-            paddingBottom: '12%'
           }}
         >
-          <p 
-            className="text-lg sm:text-xl font-semibold tracking-wide sm:mb-2"
-            style={{ 
-              color: '#000000', 
-              lineHeight: '1.2',
-              fontFamily: "'Playfair Display', 'Bodoni Moda', serif",
-              marginBottom: '1.25rem'
-            }}
-          >
-            22 February, 2026
-          </p>
-          
-<p 
-  className="text-sm sm:text-base tracking-widest uppercase sm:mb-2"
-  style={{ 
-    color: '#6B6B6B',
-    fontFamily: "'Playfair Display', 'Bodoni Moda', serif",
-    letterSpacing: '0.15em',
-    marginBottom: '1.25rem'
-  }}
->
-  Babubhai Jagjivandas Hall, Vile Parle
-</p>
-
-<p 
-  className="italic text-base sm:text-lg tracking-wide"
-  style={{ 
-    color: '#000000', 
-    lineHeight: '1.2',
-    fontFamily: "'Playfair Display', 'Bodoni Moda', serif"
-  }}
->
-  9.30 AM Onwards
-</p>
+          {content}
         </div>
       </div>
       
@@ -292,12 +266,7 @@ const ScratchCard: React.FC<ScratchCardProps> = ({
         />
       ))}
       
-      {/* Hint text */}
-      {!isRevealed && scratchPercent < 10 && (
-        <div className="absolute -bottom-8 sm:-bottom-10 left-1/2 -translate-x-1/2 text-muted-foreground text-[10px] sm:text-xs tracking-wider animate-pulse whitespace-nowrap z-30">
-          Scratch to reveal ✨
-        </div>
-      )}
+      {/* Hint text removed - now controlled by parent component */}
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import leftCurtain from "../assets/left.png";
-import rightCurtain from "../assets/right.png";
-import closedCurtain from "../assets/closed.png";
-import leftCurtainMobile from "../assets/5.png";
-import rightCurtainMobile from "../assets/4.png";
+import leftCurtain from "../assets/ChatGPT Image Feb 14, 2026, 02_10_27 AM.png";
+import rightCurtain from "../assets/ChatGPT Image Feb 14, 2026, 02_10_31 AM.png";
+import closedCurtain from "../assets/curtain (1).png";
+import leftCurtainMobile from "../assets/ChatGPT Image Feb 14, 2026, 02_10_27 AM.png";
+import rightCurtainMobile from "../assets/ChatGPT Image Feb 14, 2026, 02_10_31 AM.png";
 
 interface CurtainProps {
   side: "left" | "right";
@@ -29,10 +29,8 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
 
   useEffect(() => {
     if (isOpen && side === "left") {
-      // Only trigger confetti once from left curtain to avoid duplicates
       setShowConfetti(true);
       
-      // Generate confetti pieces - more pieces for glitter effect
       const pieces: Confetti[] = [];
       const colors = ["#FFD700", "#FFC125", "#FFDF00", "#FFE55C", "#FFEA70", "#FFF4A3"];
       const shapes = ["circle", "diamond", "star", "square"];
@@ -40,19 +38,18 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
       for (let i = 0; i < 150; i++) {
         pieces.push({
           id: i,
-          x: Math.random() * 100, // Random horizontal position (%)
-          y: -20, // Start above viewport
+          x: Math.random() * 100,
+          y: -20,
           rotation: Math.random() * 360,
           color: colors[Math.floor(Math.random() * colors.length)],
           delay: Math.random() * 0.8,
-          size: Math.random() * 6 + 2, // 2-8px (smaller for glitter effect)
+          size: Math.random() * 6 + 2,
           shape: shapes[Math.floor(Math.random() * shapes.length)],
         });
       }
       
       setConfetti(pieces);
 
-      // Clear confetti after animation completes
       const timer = setTimeout(() => {
         setShowConfetti(false);
         setConfetti([]);
@@ -66,56 +63,63 @@ const Curtain = ({ side, isOpen }: CurtainProps) => {
     <>
       {/* Desktop curtain - stays fixed */}
       <motion.div
-        className="hidden md:block fixed top-0 bottom-0 z-50 overflow-hidden pointer-events-none"
+        className="hidden md:block fixed top-0 h-screen z-50 overflow-visible pointer-events-none"
         style={{
           width: "50vw",
           [isLeft ? "left" : "right"]: 0,
         }}
-        initial={{ x: 0 }}
+        initial={false}
         animate={{
-          x: isOpen ? (isLeft ? "-30%" : "30%") : 0,
+          x: isOpen 
+            ? (isLeft ? "-50%" : "50%")
+            : 0,
         }}
         transition={{
           duration: 1.6,
           ease: [0.25, 0.1, 0.25, 1],
         }}
       >
-        <img
-          src={isOpen 
-            ? (isLeft ? leftCurtain : rightCurtain)
-            : closedCurtain
-          }
-          alt={`${side} curtain`}
-          className="w-full h-full object-cover"
-        />
+        <div className="relative w-full h-full">
+          <img
+            src={isOpen 
+              ? (isLeft ? leftCurtain : rightCurtain)
+              : closedCurtain
+            }
+            alt={`${side} curtain`}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+        </div>
       </motion.div>
 
       {/* Mobile curtain - scrolls with content */}
-{/* Mobile curtain - scrolls with content */}
-<motion.div
-  className="block md:hidden absolute top-0 bottom-0 z-50 overflow-hidden pointer-events-none"
-  style={{
-    width: "50vw",
-    [isLeft ? "left" : "right"]: 0,
-    height: "100vh",
-  }}
-  initial={{ x: 0 }}
-  animate={{
-    x: isOpen ? (isLeft ? "-30%" : "20%") : 0,  // Changed "-30" to "-30%"
-  }}
-  transition={{
-    duration: 1.6,
-    ease: [0.25, 0.1, 0.25, 1],
-  }}
->
-        <img
-          src={isOpen 
-            ? (isLeft ? leftCurtainMobile : rightCurtainMobile)
-            : closedCurtain
-          }
-          alt={`${side} curtain`}
-          className="w-full h-full object-cover"
-        />
+      <motion.div
+        className="block md:hidden absolute top-0 z-50 overflow-visible pointer-events-none"
+        style={{
+          width: "50vw",
+          [isLeft ? "left" : "right"]: 0,
+          minHeight: "100vh",
+        }}
+        initial={false}
+        animate={{
+          x: isOpen 
+            ? (isLeft ? "-5%" : "5%")
+            : 0,
+        }}
+        transition={{
+          duration: 1.6,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
+      >
+        <div className="relative w-full min-h-screen">
+          <img
+            src={isOpen 
+              ? (isLeft ? leftCurtainMobile : rightCurtainMobile)
+              : closedCurtain
+            }
+            alt={`${side} curtain`}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+        </div>
       </motion.div>
 
       {/* Confetti - works on both mobile and desktop */}
